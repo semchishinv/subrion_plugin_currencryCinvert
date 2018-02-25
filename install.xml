@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module type="plugin" name="currency">
+    <title>Life Currency Convert</title>
+    <summary>Life Currency Converter</summary>
+    <author>Intelliants LLC</author>
+    <contributor>Intelliants LLC</contributor>
+    <version>1.0.1</version>
+    <date>2017-02-14</date>
+    <compatibility>4.1.0</compatibility>
+
+    <screenshots>
+        <screenshot type="preview" name="preview.jpg">View Listing page</screenshot>
+    </screenshots>
+
+    <items>
+        <item>currency</item>
+    </items>
+
+    <phrases>
+        <phrase category="front" key="currency_convert">Currency Convert</phrase>
+        <phrase category="common" key="no_currency">Service not available</phrase>
+    </phrases>
+
+    <pages>
+        <page url="currency/" name="currency">Currency</page>
+    </pages>
+
+    <blocks>
+        <block title="Currency convert" name="currencyConvert" position="left" order ="4" sticky="1" pages="index" forder="1" type="smarty" filename="currency.convert.tpl"><![CDATA[]]></block>
+    </blocks>
+
+    <hooks>
+        <hook name="phpCoreBeforePageDisplay" filename="hook.currency-convert.php" page_type="front"><![CDATA[]]></hook>
+    </hooks>
+
+    <install>
+        <sql>
+            <![CDATA[
+CREATE TABLE IF NOT EXISTS `{prefix}persons`(
+    `id` int(8) unsigned NOT NULL auto_increment,
+    `date_added` date,
+    `date_modified` date,
+    `status` enum('active', 'inactive') NOT NULL default 'inactive',
+    `order` mediumint(8) NOT NULL default 0,
+    `views_num` mediumint(8) unsigned NOT NULL default 0,
+    `featured` tinyint(1) unsigned NOT NULL default 0,
+    `featured_start` datetime NULL,
+    `featured_end` datetime NULL,
+    PRIMARY KEY (`id`),
+    KEY `STATUS` (`status`),
+    KEY `ORDER` (`order`)
+) {mysql_version};
+            ]]>
+        </sql>
+    </install>
+
+    <uninstall>
+        <sql>
+            <![CDATA[
+DROP TABLE IF EXISTS `{prefix}persons`;
+            ]]>
+        </sql>
+    </uninstall>
+</module>
